@@ -1,11 +1,26 @@
+// Variables 2
 var name = 'Oscar';
-console.log(name);
+var age = 26;
 
-var lastName = 'Polanco';
+console.log(name + ' ' + age);
+
+var job, isMarried;
+
+console.log(job);
+
+job = 'teacher';
+isMarried = false;
+
+console.log(name + ' is a ' + age + ' years old ' + job + '. Is he married? ' + isMarried + '.');
+
+// Mutation
+age = 'thirty six';
+job = 'driver'
+
+console.log(name + ' is a ' + age + ' years old ' + job + '. Is he married? ' + isMarried + '.');
+
+var lastName = prompt('What is the last name');
+
 console.log(lastName);
 
-var age = 18;
-console.log(age);
-
-var fullAge = true;
-console.log(fullAge);
+alert(name + ' is a ' + age + ' years old ' + job + '. Is he married? ' + isMarried + '.');

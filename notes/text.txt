@@ -1,1 +1,2 @@
 Dynamic Typing => You don't need to specify the data type of a variable it already know on the fly
+Type coercion => Js automatically convert a data type to another. When you mix variables Js try to figure out which convert
