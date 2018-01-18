@@ -1,26 +1,19 @@
-// Variables 2
-var name = 'Oscar';
-var age = 26;
+// Oparators
+var now = 2018;
+var birthYear = now - 26;
+birthYear = now - 26 * 2;
+// 2018 - 52
 
-console.log(name + ' ' + age);
+console.log(birthYear);
 
-var job, isMarried;
+var ageOscar = 28;
+var ageOther = 30;
 
-console.log(job);
+ageOscar = ageOther = (3 + 5) * 4 - 6;
+// ageOscar = ageOther = 26
+// ageOscar = 26
 
-job = 'teacher';
-isMarried = false;
-
-console.log(name + ' is a ' + age + ' years old ' + job + '. Is he married? ' + isMarried + '.');
-
-// Mutation
-age = 'thirty six';
-job = 'driver'
-
-console.log(name + ' is a ' + age + ' years old ' + job + '. Is he married? ' + isMarried + '.');
-
-var lastName = prompt('What is the last name');
-
-console.log(lastName);
-
-alert(name + ' is a ' + age + ' years old ' + job + '. Is he married? ' + isMarried + '.');
+ageOscar++;
+ageOther *= 2;
+console.log(ageOscar);
+console.log(ageOther);
