@@ -1,19 +1,26 @@
-// Oparators
-var now = 2018;
-var birthYear = now - 26;
-birthYear = now - 26 * 2;
-// 2018 - 52
+// if/else statements
+var name = 'Oscar';
+var age = 26;
+var isMarried = 'yes';
 
-console.log(birthYear);
+if (isMarried === 'yes') {
+    console.log(name + ' is married!!!');
+} else {
+    console.log(name + ' will hopefully marry soon :)');
+}
 
-var ageOscar = 28;
-var ageOther = 30;
+isMarried = false;
 
-ageOscar = ageOther = (3 + 5) * 4 - 6;
-// ageOscar = ageOther = 26
-// ageOscar = 26
+if (isMarried) {
+    console.log('YES!!');
+} else {
+    console.log('NO!!');
+}
 
-ageOscar++;
-ageOther *= 2;
-console.log(ageOscar);
-console.log(ageOther);
+if ( 23 === "23"){
+    console.log('Something to print...');
+}
+
+if ( 23 == "23"){
+    console.log('Something to print 2...');
+}
