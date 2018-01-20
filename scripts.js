@@ -1,27 +1,29 @@
-// boolean logic switch
-
-var age = 20;
-
-if (age < 20) {
-    console.log('John is a teenager');
-} else if (age >= 20 && age < 30 ) {
-    console.log('John is a young man.');
-} else {
-    console.log('John is a man.');
+// functions
+function calculateAge (yearOfBirth) {
+    var age = 2018 - yearOfBirth;
+    return age;
 }
 
-var job = prompt('What does John do?');
+var ageJohn = calculateAge(1990);
+var ageMike = calculateAge(1969);
+var ageMary = calculateAge(1948);
+console.log(ageJohn);
+console.log(ageMike);
+console.log(ageMary);
 
-switch (job) {
-    case 'teacher':
-        console.log('John teaches kids.');
-        break;
-    case 'driver':
-        console.log('John drives a cab in Lisbon');
-        break;
-    case 'cop':
-        console.log('John helps fight crime.');
-        break;
-    default:
-        console.log('John does something else.');
+function yearsUntilRetirement(name, year) {
+    var age = calculateAge(year);
+    var retirement = 65 - age;
+
+    if (retirement >= 0) {
+        console.log(name + ' retires in ' + retirement + ' years.');
+
+    } else {
+        console.log(name + ' is already retired.');
+    }
+
 }
+
+yearsUntilRetirement('John', 1990);
+yearsUntilRetirement('Mike', 1969);
+yearsUntilRetirement('Mary', 1948);
