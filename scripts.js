@@ -1,32 +1,36 @@
-// objects methods
-var john = {
-    name: 'John',
-    lastName: 'Smith',
-    yearOfBirth: 1990,
-    job: 'teacher',
-    isMarried: false,
-    family: ['Jame', 'Mark', 'Bod'],
-    calculateAge: function() {
-        return 2018 - this.yearOfBirth;
+// Loops
+for (var i = 0; i < 10; i++) {
+    console.log(i);
+}
+
+var names = ['John', 'Jane', 'Mary', 'Mark', 'Bob'];
+
+for (var i = 0; i < names.length; i++) {
+    console.log(names[i]);
+}
+
+for (var i = names.length - 1; i >= 0; i--) {
+    console.log(names[i]);
+}
+
+var i = 0;
+while (i < names.length) {
+    console.log(names[i]);
+    i++;
+}
+
+for (var i = 1; i <= 5; i++) {
+    console.log(i);
+
+    if (i === 3) {
+        break;
     }
-};
+}
 
-console.log(john.calculateAge());
-var age = john.calculateAge();
-john.age = age;
-console.log(john);
+for (var i = 1; i <= 5; i++) {
 
-john = {
-    name: 'John',
-    lastName: 'Smith',
-    yearOfBirth: 1990,
-    job: 'teacher',
-    isMarried: false,
-    family: ['Jame', 'Mark', 'Bod'],
-    calculateAge: function() {
-        this.age = 2016 - this.yearOfBirth;
+    if (i === 3) {
+        continue;
     }
-};
-
-john.calculateAge();
-console.log(john);
+    console.log(i);
+}
