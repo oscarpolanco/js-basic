@@ -1,27 +1,32 @@
-// objects
+// objects methods
 var john = {
     name: 'John',
     lastName: 'Smith',
     yearOfBirth: 1990,
     job: 'teacher',
-    isMarried: false
-}
+    isMarried: false,
+    family: ['Jame', 'Mark', 'Bod'],
+    calculateAge: function() {
+        return 2018 - this.yearOfBirth;
+    }
+};
 
-console.log(john.lastName);
-console.log(john['lastName']);
-
-var xyz = 'job';
-console.log(john[xyz]);
-
-john.lastName = 'Miller';
-john['job'] = 'programer';
-
+console.log(john.calculateAge());
+var age = john.calculateAge();
+john.age = age;
 console.log(john);
 
-var jane = new Object();
-jane.name = 'Jame';
-jane['yearOfBirth'] = 1969;
-jane['job'] = 'retired';
-jane['isMarried'] = true;
+john = {
+    name: 'John',
+    lastName: 'Smith',
+    yearOfBirth: 1990,
+    job: 'teacher',
+    isMarried: false,
+    family: ['Jame', 'Mark', 'Bod'],
+    calculateAge: function() {
+        this.age = 2016 - this.yearOfBirth;
+    }
+};
 
-console.log(jane);
+john.calculateAge();
+console.log(john);
