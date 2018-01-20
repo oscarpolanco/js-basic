@@ -1,24 +1,42 @@
 /*
-3 players enter it height on centimeters plus five times
-the age the winners its the one with the biggest score
+Coding challenge 2
+1. Create an array with some years where persons were born.
+2. Create an empty array.
+3. Use a lopp to fill the array with the ages of the persons.
+4. Use another another loop to log into the console wheter
+each person is of full age, as well as their age.
+5. Finally, create a function called printFullAge with recives
+the array of years as an argument, executes the steps 2, 3 and 4
+and return de array of true/false boolean values: true if the
+person is full age and false if not.
+6. Call the function with 2 different arrays and store the results
+in 2 variables full_1 and full_2
+Example:
+input => [1965, 2008, 1992]
+output => [true, false, true]
 */
-var playerOneHeight = prompt('Enter the player one height');
-var playerTwoHeight = prompt('Enter the player two height');
-var playerThreeHeight = prompt('Enter the player three height');
-var playerOneAge = prompt('Enter the player one age');
-var playerTwoAge = prompt('Enter the player two age');
-var playerThreeAge = prompt('Enter the player three age');
 
-var playerOneValue = parseInt(playerOneHeight) + 5 * playerOneAge;
-var playerTwoValue = parseInt(playerTwoHeight) + 5 * playerTwoAge;
-var playerThreeValue = parseInt(playerThreeHeight) + 5 * playerThreeAge;
+var full_1 = [1965, 2009, 1992];
+var full_2 = [1992, 2009, 1965];
 
-if (playerOneValue > playerTwoValue && playerOneValue > playerThreeValue) {
-    console.log('Player one win with this score: ' + playerOneValue);
-} else if (playerOneValue < playerTwoValue && playerThreeValue < playerTwoValue) {
-    console.log('Player two win with this score: ' + playerTwoValue);
-} else if (playerOneValue < playerThreeValue && playerTwoValue < playerThreeValue) {
-    console.log('Player three win with this score: ' + playerThreeValue);
-} else {
-    console.log('the players draw with this score: ' + playerOneValue);
+function printFullAge(yearsOfBirth) {
+    ages = [];
+    for (var i = 0; i < yearsOfBirth.length; i++) {
+        ages[i] = 2018 - yearsOfBirth[i];
+    }
+
+    for (var i = 0; i < ages.length; i++) {
+        if (ages[i] >= 18) {
+            console.log('Is full age and his birth year is ' + ages[i]);
+            ages[i] = true;
+        } else {
+            console.log('Is not full age and his birth year is ' + ages[i]);
+            ages[i] = false;
+        }
+    }
+
+    return ages;
 }
+
+console.log(printFullAge(full_1));
+console.log(printFullAge(full_2));
