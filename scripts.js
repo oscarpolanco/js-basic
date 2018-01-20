@@ -1,19 +1,20 @@
-// functions statements and expresions
-// function statement
-function someFun(par) {
-    // code
-}
+// arrays
+var names = ['John', 'Jane', 'Mark'];
+var years = new Array(1990, 1969, 1948);
 
-// function expresion
-var someFun = function(par) {
-    //code
-}
+console.log(names[1]);
+names[1] = 'Ben';
+console.log(names[1]);
 
-// expresions
-3 + 4;
-var x = 3;
+var john = ['John', 'Smith', 1990, 'designer', false];
+john.push('blue');
+console.log(john);
+john.unshift('Mr.');
+console.log(john);
+john.pop();
+john.shift();
+console.log(john);
 
-// statement
-if (x === 5) {
-    // do something
+if (john.indexOf('teacher') === -1) {
+    console.log('John is not a teacher.');
 }
