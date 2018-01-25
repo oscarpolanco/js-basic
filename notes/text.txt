@@ -9,3 +9,6 @@ Operators precedence table => https://developer.mozilla.org/en-US/docs/Web/JavaS
 Tripe equal doesn't do type coercion; double equal yes.
 
 fucntion expresion return a value and functions statements preform an action
+
+Hoisting => on the creation phase of the execution context the function and variables (variables undefined before assing) are
+stored on an object and only work on function declaration

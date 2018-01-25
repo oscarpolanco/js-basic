@@ -1,36 +1,28 @@
-// Loops
-for (var i = 0; i < 10; i++) {
-    console.log(i);
+// Hoisting
+// functions
+calculateAge(1995);
+function calculateAge(year) {
+    console.log(2018 - year);
 }
 
-var names = ['John', 'Jane', 'Mary', 'Mark', 'Bob'];
+// retirement(1965);
 
-for (var i = 0; i < names.length; i++) {
-    console.log(names[i]);
+var retirement = function(year) {
+    console.log(65 - (2018 - year));
 }
 
-for (var i = names.length - 1; i >= 0; i--) {
-    console.log(names[i]);
+retirement(1990);
+
+// variables
+console.log(age);
+var age = 23;
+console.log(age);
+
+function foo() {
+    console.log(age);
+    var age = 65;
+    console.log(age);
 }
 
-var i = 0;
-while (i < names.length) {
-    console.log(names[i]);
-    i++;
-}
-
-for (var i = 1; i <= 5; i++) {
-    console.log(i);
-
-    if (i === 3) {
-        break;
-    }
-}
-
-for (var i = 1; i <= 5; i++) {
-
-    if (i === 3) {
-        continue;
-    }
-    console.log(i);
-}
+foo();
+console.log(age);
