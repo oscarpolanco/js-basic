@@ -10,5 +10,12 @@ Tripe equal doesn't do type coercion; double equal yes.
 
 fucntion expresion return a value and functions statements preform an action
 
+Execution context object
+- variable object
+- scope chain
+- this
+
 Hoisting => on the creation phase of the execution context the function and variables (variables undefined before assing) are
 stored on an object and only work on function declaration
+
+Lexical context => Function that is on another function that get access to the scope of the outer function

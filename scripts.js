@@ -1,28 +1,32 @@
-// Hoisting
-// functions
-calculateAge(1995);
-function calculateAge(year) {
-    console.log(2018 - year);
+// scope
+var a = 'Hello';
+first();
+
+function first() {
+    var b = 'Hi!';
+    second();
+
+    function second() {
+        var c = 'Hey';
+        console.log(a + b + c);
+    }
 }
 
-// retirement(1965);
+var d = 'Hello';
+third();
 
-var retirement = function(year) {
-    console.log(65 - (2018 - year));
+function third() {
+    var e = 'Hi!';
+    fourth();
+
+    function fourth() {
+        var f = 'Hey';
+        fifth();
+    }
 }
 
-retirement(1990);
-
-// variables
-console.log(age);
-var age = 23;
-console.log(age);
-
-function foo() {
-    console.log(age);
-    var age = 65;
-    console.log(age);
+function fifth() {
+    var g = 'John';
+    // console.log(f);
+    console.log(d + g);
 }
-
-foo();
-console.log(age);
