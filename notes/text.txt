@@ -19,3 +19,10 @@ Hoisting => on the creation phase of the execution context the function and vari
 stored on an object and only work on function declaration
 
 Lexical context => Function that is on another function that get access to the scope of the outer function
+
+Every Js object has a prototype property. The prototype of an object is where we put methods and properties that we want other
+object to inherit.
+
+The constructor's prototype is not the prototype of the constructor itself, it's the prototype of all instances that are created
+through it. When a certain method is called, the search starts in the object itself, and if it cannot be found, the search moves
+on to the object's prototype. This continue until the method is found: prototype chain.
