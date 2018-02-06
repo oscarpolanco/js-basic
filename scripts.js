@@ -1,32 +1,30 @@
-// this keyword
-console.log(this); //window
-
-function calculateAge(year) {
-    console.log(2018 - year);
-    console.log(this); //window
-}
-
-calculateAge(1985);
+// Function constructor
 
 var john = {
     name: 'John',
     yearOfBirth: 1990,
-    calculateAge: function() {
-        console.log(this); //John object
-        console.log(2018 - this.yearOfBirth);
-        function innerFucntion() {
-            console.log(this); //window
-        }
-        innerFucntion();
-    }
-}
+    job: 'teacher'
+};
 
-john.calculateAge();
+var Person = function(name, yearOfBirth, job) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+};
 
-var mike = {
-    name: 'Mike',
-    yearOfBirth: 1984
-}
+Person.prototype.calculeAge = function () {
+    console.log(2018 - this.yearOfBirth);
+};
 
-mike.calculateAge = john.calculateAge;
-mike.calculateAge();
+Person.prototype.lastName = 'Smith';
+
+var john = new Person('John', 1990, 'teacher');
+var jane = new Person('Jane', 1969, 'designer');
+var mark = new Person('Mark', 1948, 'retired');
+
+john.calculeAge();
+jane.calculeAge();
+mark.calculeAge();
+console.log(john.lastName);
+console.log(jane.lastName);
+console.log(mark.lastName);
