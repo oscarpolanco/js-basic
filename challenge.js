@@ -1,42 +1,113 @@
 /*
-Coding challenge 2
-1. Create an array with some years where persons were born.
-2. Create an empty array.
-3. Use a lopp to fill the array with the ages of the persons.
-4. Use another another loop to log into the console wheter
-each person is of full age, as well as their age.
-5. Finally, create a function called printFullAge with recives
-the array of years as an argument, executes the steps 2, 3 and 4
-and return de array of true/false boolean values: true if the
-person is full age and false if not.
-6. Call the function with 2 different arrays and store the results
-in 2 variables full_1 and full_2
-Example:
-input => [1965, 2008, 1992]
-output => [true, false, true]
+1. Player loose his entire score when he rolls two 6 on a roy. After that, it's next player's
+turn.
+2. Add an input field to the HTML where players can set the winning score, so they can change
+the predefined score of 100.
+3. Add another dice to the game, so that there are two dice now. The player looses his Current
+score when one of them is 1.
 */
 
-var full_1 = [1965, 2009, 1992];
-var full_2 = [1992, 2009, 1965];
+var scores, roundScore, activePlayer, gamePlaying, skip;
+var prevDices = [];
 
-function printFullAge(yearsOfBirth) {
-    ages = [];
-    for (var i = 0; i < yearsOfBirth.length; i++) {
-        ages[i] = 2018 - yearsOfBirth[i];
-    }
+init();
 
-    for (var i = 0; i < ages.length; i++) {
-        if (ages[i] >= 18) {
-            console.log('Is full age and his birth year is ' + ages[i]);
-            ages[i] = true;
+
+// Anonymous function
+document.querySelector('.btn-roll').addEventListener('click', function() {
+    var dices = [];
+    if (gamePlaying) {
+        for (var i = 0; i < 2; i++) {
+            dices[i] = Math.floor(Math.random() * 6) + 1;
+            if(dices[i] === 1 || (dices[i] === 6 && prevDices[i] === 6)) {
+                skip = true;
+            }
+        }
+
+        updateDice('.dice', dices[0]);
+        updateDice('.second-dice', dices[1]);
+
+        if(!skip) {
+            roundScore += (dices[0] + dices[1]);
+            document.querySelector('#current-' + activePlayer).textContent = roundScore;
+            prevDices = [dices[0], dices[1]];
         } else {
-            console.log('Is not full age and his birth year is ' + ages[i]);
-            ages[i] = false;
+            prevDices = [0, 0];
+            skip = false;
+            nextPlayer();
         }
     }
+});
 
-    return ages;
+document.querySelector('.btn-hold').addEventListener('click', function() {
+    if (gamePlaying) {
+        scores[activePlayer] += roundScore;
+
+        document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+        var winningScore = document.querySelector('.winning-score').value;
+        winningScore = winningScore ? winningScore : 100;
+
+        if (scores[activePlayer] >= winningScore) {
+            document.querySelector('#name-' + activePlayer).textContent = 'Winner';
+            hideDice();
+            toggleClass('.player-' + activePlayer + '-panel', 'active');
+            toggleClass('.player-' + activePlayer + '-panel', 'winner');
+            gamePlaying = false;
+        } else {
+            nextPlayer();
+        }
+    }
+});
+
+document.querySelector('.btn-new').addEventListener('click', init);
+
+function init() {
+    scores = [0 , 0];
+    activePlayer = 0;
+    roundScore = 0;
+
+    hideDice();
+    document.getElementById('score-0').textContent = '0';
+    document.getElementById('score-1').textContent = '0';
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+    document.getElementById('name-0').textContent = 'Player 1';
+    document.getElementById('name-1').textContent = 'Player 2';
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
+    document.querySelector('.player-0-panel').classList.add('active');
+    document.querySelector('.winning-score').value = '';
+    gamePlaying = true;
+
 }
 
-console.log(printFullAge(full_1));
-console.log(printFullAge(full_2));
+function toggleClass(selector,classToToggle) {
+    document.querySelector(selector).classList.toggle(classToToggle);
+}
+
+function hideDice() {
+    document.querySelector('.dice').style.display = 'none';
+    document.querySelector('.second-dice').style.display = 'none';
+
+}
+
+function nextPlayer() {
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+    roundScore = 0;
+
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+
+    toggleClass('.player-0-panel', 'active');
+    toggleClass('.player-1-panel', 'active');
+
+    hideDice();
+}
+
+function updateDice(selector, value) {
+    var diceDOM = document.querySelector(selector);
+    diceDOM.style.display = 'block';
+    diceDOM.src = 'dice-' + value + '.png';
+}
