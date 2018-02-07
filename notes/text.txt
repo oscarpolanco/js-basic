@@ -32,4 +32,7 @@ the actual object.
 
 Js treat the things inside of a parenthesis as an expression instead of a declaration.
 
-Immediatly invoked function expresions just for data privacy and code modularity
+Immediatly invoked function expresions just for data privacy and code modularity.
+
+Closures => An inner function has always access to the variables and parameters of its outer function, even after the outer function
+has returned. The scope chain always is intact 
