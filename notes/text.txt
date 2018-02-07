@@ -29,3 +29,7 @@ on to the object's prototype. This continue until the method is found: prototype
 
 Variables containing primative contains the actual value but variables containing objects contains a reference to that object not
 the actual object.
+
+Js treat the things inside of a parenthesis as an expression instead of a declaration.
+
+Immediatly invoked function expresions just for data privacy and code modularity
