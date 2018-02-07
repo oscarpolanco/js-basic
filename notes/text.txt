@@ -26,3 +26,6 @@ object to inherit.
 The constructor's prototype is not the prototype of the constructor itself, it's the prototype of all instances that are created
 through it. When a certain method is called, the search starts in the object itself, and if it cannot be found, the search moves
 on to the object's prototype. This continue until the method is found: prototype chain.
+
+Variables containing primative contains the actual value but variables containing objects contains a reference to that object not
+the actual object.
