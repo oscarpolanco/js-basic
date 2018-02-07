@@ -1,33 +1,34 @@
-// Primative vs Objects
-var a = 23;
-var b = a;
-a = 46;
-console.log(a);
-console.log(b);
+// Passing functions as arguments
 
-var obj = {
-    name: 'John',
-    age: 26
+var years = [1990, 1965, 1937, 2005, 1998];
+
+function arrayCalc(arr, fn) {
+    var arrRes = [];
+    for (var i = 0; i < arr.length; i++) {
+        arrRes.push(fn(arr[i]));
+    }
+    return arrRes;
 }
 
-var obj2 = obj;
-obj.age = 30;
-
-console.log(obj.age);
-console.log(obj2.age);
-
-var age = 27;
-var obj = {
-    name: 'Jonas',
-    city: 'Lisbon'
-};
-
-function change(a, b) {
-    a = 30;
-    b.city = 'San Francisco';
+function calculateAge(el) {
+    return 2018 - el;
 }
 
-change(age, obj);
+function isFullAge(el) {
+    return el >= 18;
+}
 
-console.log(age);
-console.log(obj.city);
+function maxHeartRate(el) {
+    if (el >= 18 && el <= 81) {
+
+        return Math.round(206.9 - (0.67 * el));
+    }
+    return -1;
+}
+
+var ages = arrayCalc(years, calculateAge);
+var fullAges = arrayCalc(ages, isFullAge);
+var rates = arrayCalc(ages, maxHeartRate);
+console.log(ages);
+console.log(fullAges);
+console.log(rates);
