@@ -35,4 +35,6 @@ Js treat the things inside of a parenthesis as an expression instead of a declar
 Immediatly invoked function expresions just for data privacy and code modularity.
 
 Closures => An inner function has always access to the variables and parameters of its outer function, even after the outer function
-has returned. The scope chain always is intact 
+has returned. The scope chain always is intact.
+
+Carrying is a technique to create a function from another function with some pre-set parameters.
