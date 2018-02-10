@@ -41,23 +41,26 @@ with the tools you feel more comfortable at this point).
         this.question = question;
         this.options = options;
         this.anwser = awnser;
-        this.logQuestion = function() {
-            console.log(this.question);
-            for (var i = 0; i < this.options.length; i++) {
-                console.log((i + 1) + '. ' + this.options[i]);
-            }
-        };
-        this.isCorrect = function(playerChoise) {
-            if(parseInt(playerChoise) === this.anwser) {
-                console.log('You are correct!!!!');
-                score++;
-                console.log('Your score is: ' + score);
-                console.log('------------------------');
-            } else {
-                console.log('Is not the correct awnser :(');
-                console.log('------------------------');
-            }
-        };
+    };
+
+    Question.prototype.logQuestion = function() {
+        console.log(this.question);
+        for (var i = 0; i < this.options.length; i++) {
+            console.log((i + 1) + '. ' + this.options[i]);
+        }
+    };
+
+    Question.prototype.isCorrect = function(playerChoise) {
+        if(parseInt(playerChoise) === this.anwser) {
+            console.log('You are correct!!!!');
+            score++;
+            console.log('Your score is: ' + score);
+            console.log('------------------------');
+        } else {
+            console.log('Is not the correct awnser :(');
+            console.log('Your score is: ' + score);
+            console.log('------------------------');
+        }
     };
 
     var questions = [];
@@ -67,7 +70,7 @@ with the tools you feel more comfortable at this point).
     questions[2] = new Question('Can you tell who is the other example name?', ['Paco', 'Jane'], 2);
 
     while (true) {
-        var index = Math.round(Math.random() * 2 + 1) - 1;
+        var index = Math.floor(Math.random() * questions.length);
         questions[index].logQuestion();
 
         var playerChoise = prompt('Enter your answer:');
