@@ -1,113 +1,79 @@
 /*
-1. Player loose his entire score when he rolls two 6 on a roy. After that, it's next player's
-turn.
-2. Add an input field to the HTML where players can set the winning score, so they can change
-the predefined score of 100.
-3. Add another dice to the game, so that there are two dice now. The player looses his Current
-score when one of them is 1.
+1. Build a function constructor called question to describe a question, A question include:
+a) question itself
+b) the awnsers from which the player can choose the correct one (choose an adequate data structure
+here, array, object, etc.)
+c) correct answer (I would use a number for this)
+
+2. Create a couple of questuions using the constructor
+
+3. Store them all inside an array
+
+4. Select one random question and log it on the console, together with the possible awnser (each
+questuion should have a number) (Hint: write a method for the Question object for this task).
+
+5. Use the `prompt` function to ask the user for the correct awnser. The user should input the
+number of the correct awnser such as you displayed it on Task 4.
+
+6. Check if the awnser is correct and print to the console whether the awnser is correct or not
+(Hint: write another method for this).
+
+7. Suppose this code would be a plugin for other programmers to use their code. So make sure that
+all your code is private and doesn't interfere with the other programmers code (Hint: we learned
+a special technique to do exactly that).
+
+8. After you display the result, display the next random question, so that the gane never ends(Hint:
+write a function for this and call it right after displaying the result)
+
+9. Be careful: after Task 8, the game literally never ends. So include a quit option to quick the game
+if the user write 'exit' instead of the answer. In this case, DON't call the function from task 8.
+
+10. Track the user's score to make the game more fun! So each time an answer is correct, add 1 point to
+the score (Hint: I'm going to use the power of closueres for thism but you don't have to, just do this
+with the tools you feel more comfortable at this point).
+
+11. Display the score in the console. Use yet another method for this.
 */
 
-var scores, roundScore, activePlayer, gamePlaying, skip;
-var prevDices = [];
 
-init();
-
-
-// Anonymous function
-document.querySelector('.btn-roll').addEventListener('click', function() {
-    var dices = [];
-    if (gamePlaying) {
-        for (var i = 0; i < 2; i++) {
-            dices[i] = Math.floor(Math.random() * 6) + 1;
-            if(dices[i] === 1 || (dices[i] === 6 && prevDices[i] === 6)) {
-                skip = true;
+(function() {
+    var Question = function(question, options, awnser) {
+        this.question = question;
+        this.options = options;
+        this.anwser = awnser;
+        this.logQuestion = function() {
+            console.log(this.question);
+            for (var i = 0; i < this.options.length; i++) {
+                console.log((i + 1) + '. ' + this.options[i]);
             }
-        }
+        };
+        this.isCorrect = function(playerChoise) {
+            if(parseInt(playerChoise) === this.anwser) {
+                console.log('You are correct!!!!');
+                score++;
+                console.log('Your score is: ' + score);
+                console.log('------------------------');
+            } else {
+                console.log('Is not the correct awnser :(');
+                console.log('------------------------');
+            }
+        };
+    };
 
-        updateDice('.dice', dices[0]);
-        updateDice('.second-dice', dices[1]);
+    var questions = [];
+    var score = 0;
+    questions[0] = new Question('Name of the example guy?', ['Max', 'John'], 2);
+    questions[1] = new Question('Where does he work?', ['Teacher', 'developer'], 1);
+    questions[2] = new Question('Can you tell who is the other example name?', ['Paco', 'Jane'], 2);
 
-        if(!skip) {
-            roundScore += (dices[0] + dices[1]);
-            document.querySelector('#current-' + activePlayer).textContent = roundScore;
-            prevDices = [dices[0], dices[1]];
-        } else {
-            prevDices = [0, 0];
-            skip = false;
-            nextPlayer();
+    while (true) {
+        var index = Math.round(Math.random() * 2 + 1) - 1;
+        questions[index].logQuestion();
+
+        var playerChoise = prompt('Enter your answer:');
+        if (playerChoise === 'exit') {
+            break;
         }
+        questions[index].isCorrect(playerChoise);
     }
-});
-
-document.querySelector('.btn-hold').addEventListener('click', function() {
-    if (gamePlaying) {
-        scores[activePlayer] += roundScore;
-
-        document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
-        var winningScore = document.querySelector('.winning-score').value;
-        winningScore = winningScore ? winningScore : 100;
-
-        if (scores[activePlayer] >= winningScore) {
-            document.querySelector('#name-' + activePlayer).textContent = 'Winner';
-            hideDice();
-            toggleClass('.player-' + activePlayer + '-panel', 'active');
-            toggleClass('.player-' + activePlayer + '-panel', 'winner');
-            gamePlaying = false;
-        } else {
-            nextPlayer();
-        }
-    }
-});
-
-document.querySelector('.btn-new').addEventListener('click', init);
-
-function init() {
-    scores = [0 , 0];
-    activePlayer = 0;
-    roundScore = 0;
-
-    hideDice();
-    document.getElementById('score-0').textContent = '0';
-    document.getElementById('score-1').textContent = '0';
-    document.getElementById('current-0').textContent = '0';
-    document.getElementById('current-1').textContent = '0';
-    document.getElementById('name-0').textContent = 'Player 1';
-    document.getElementById('name-1').textContent = 'Player 2';
-    document.querySelector('.player-0-panel').classList.remove('winner');
-    document.querySelector('.player-1-panel').classList.remove('winner');
-    document.querySelector('.player-0-panel').classList.remove('active');
-    document.querySelector('.player-1-panel').classList.remove('active');
-    document.querySelector('.player-0-panel').classList.add('active');
-    document.querySelector('.winning-score').value = '';
-    gamePlaying = true;
-
-}
-
-function toggleClass(selector,classToToggle) {
-    document.querySelector(selector).classList.toggle(classToToggle);
-}
-
-function hideDice() {
-    document.querySelector('.dice').style.display = 'none';
-    document.querySelector('.second-dice').style.display = 'none';
-
-}
-
-function nextPlayer() {
-    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-    roundScore = 0;
-
-    document.getElementById('current-0').textContent = '0';
-    document.getElementById('current-1').textContent = '0';
-
-    toggleClass('.player-0-panel', 'active');
-    toggleClass('.player-1-panel', 'active');
-
-    hideDice();
-}
-
-function updateDice(selector, value) {
-    var diceDOM = document.querySelector(selector);
-    diceDOM.style.display = 'block';
-    diceDOM.src = 'dice-' + value + '.png';
-}
+})();
