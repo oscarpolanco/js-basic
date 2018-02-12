@@ -31,12 +31,21 @@ var UIController = (function() {
 // GLOBAL APP CONTROLLER
 var controller = (function(bugetCtrl, UICtrl) {
 
-    var DOM = UICtrl.getDOMStrings();
+    var setupEventListeners = function() {
+        var DOM = UICtrl.getDOMStrings();
+
+        document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+
+        document.addEventListener('keypress', function(event) {
+            if(event.keyCode === 13 || event.which === 13) {
+                ctrlAddItem();
+            }
+        });
+    };
 
     var ctrlAddItem = function() {
         // 1. Get filed input data
         var input = UICtrl.getInput();
-        console.log(input);
 
         // 2. Add the item to the budget controller
 
@@ -45,13 +54,15 @@ var controller = (function(bugetCtrl, UICtrl) {
         // 4. Calculate the budget
 
         // 5. Display the bufget on the UI
-    }
+    };
 
-    document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
-
-    document.addEventListener('keypress', function(event) {
-        if(event.keyCode === 13 || event.which === 13) {
-            ctrlAddItem();
+    return {
+        init: function() {
+            console.log('started');
+            setupEventListeners();
         }
-    });
+    };
+
 })(bugetController, UIController);
+
+controller.init();
