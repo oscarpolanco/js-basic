@@ -43,3 +43,5 @@ Event bubbling means that when a event is trigger on a DOM element the same even
 fire the event is the target element.
 
 Event delegation is when you add a event listener to the parent element and wait to the event bubbling get to the parent.
+
+Temporal dead zone => The variables are actually hoisted but you don't have access before are declare on ES6.
