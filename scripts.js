@@ -1,17 +1,25 @@
-// Lecture: Block and IIFEs
+// Lecture: strings
 
-{
-    const a = 2;
-    let b = 3;
-    var c = 4;
+let firstName = 'John';
+let lastName = 'Smith';
+const yearOfBirth = 1990;
+
+function calcAge(year) {
+    return 2016 - year;
 }
-console.log(c);
-// error
-// console.log(a + b);
 
 // ES5
-(function() {
-    var c = 3;
-})();
-// error
-// console.log(c);
+console.log('This is ' + firstName + ' ' + lastName + '. He was born in ' + yearOfBirth + '. Today, he is '+ calcAge(yearOfBirth) + ' years old.');
+
+// ES6
+// Template literals
+console.log(`This is ${firstName} ${lastName}. He was born in ${yearOfBirth}. Today, he is ${calcAge(yearOfBirth)} years old.`);
+
+const n = `${firstName} ${lastName}`;
+console.log(n.startsWith('J'));
+console.log(n.startsWith('j'));
+console.log(n.endsWith('h'));
+console.log(n.endsWith('h'));
+console.log(n.includes(' '));
+console.log(n.includes('Sm'));
+console.log(`${firstName} `.repeat(5));
