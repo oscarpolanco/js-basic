@@ -1,26 +1,30 @@
-// Default parameters
+// Maps
 
-// ES5
-/*
-function SmithPerson(firstName, yearOfBirth, lastName, nationality) {
-
-    lastName === undefined ? lastName = 'Smith' : lastName = lastName;
-    nationality === undefined ? nationality = 'America' : nationality = nationality;
-
-    this.firstName = firstName;
-    this.yearOfBirth = yearOfBirth;
-    this.lastName = lastName;
-    this.nationality = nationality;
+const question = new Map();
+question.set('question', 'What is the official name of the lastest version of the JavaScript version?');
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES2015');
+question.set(4, 'ES7');
+question.set('correct', 3);
+question.set(true, 'Correct awnswer!!!');
+question.set(false, 'Wrong, please try again');
+console.log(question.get('question'));
+console.log(question.size);
+if (question.has(4)) {
+    // question.delete(4);
+    console.log("The question 4 is here!!!!");
 }
-*/
+// delete everything
+// question.clear();
 
-// ES6
-function SmithPerson(firstName, yearOfBirth, lastName = 'Smith', nationality = 'America') {
-    this.firstName = firstName;
-    this.yearOfBirth = yearOfBirth;
-    this.lastName = lastName;
-    this.nationality = nationality;
+question.forEach((value, key) => console.log(`This is the ${key} and it's set to ${value}`));
+
+for (let [key, value] of question.entries()) {
+    if (typeof(key) === 'number') {
+        console.log(`Answer ${key}: ${value}`);
+    }
 }
 
-var john = new SmithPerson('John', 1990);
-var emily = new SmithPerson('Emily', 1983, 'Diaz', 'spanish');
+const ans = parseInt(prompt('Write the correct awnswer'));
+console.log(question.get(ans === question.get('correct')));
