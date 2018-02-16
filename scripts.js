@@ -1,25 +1,23 @@
-// Lecture: strings
+// Arrow functions
 
-let firstName = 'John';
-let lastName = 'Smith';
-const yearOfBirth = 1990;
-
-function calcAge(year) {
-    return 2016 - year;
-}
+const years = [1990, 1965, 1982, 1937];
 
 // ES5
-console.log('This is ' + firstName + ' ' + lastName + '. He was born in ' + yearOfBirth + '. Today, he is '+ calcAge(yearOfBirth) + ' years old.');
+var ages5 = years.map(function(el) {
+    return 2018 - el;
+});
+
+console.log(ages5);
 
 // ES6
-// Template literals
-console.log(`This is ${firstName} ${lastName}. He was born in ${yearOfBirth}. Today, he is ${calcAge(yearOfBirth)} years old.`);
+let ages6 = years.map(el => 2018 - el);
+console.log(ages6);
 
-const n = `${firstName} ${lastName}`;
-console.log(n.startsWith('J'));
-console.log(n.startsWith('j'));
-console.log(n.endsWith('h'));
-console.log(n.endsWith('h'));
-console.log(n.includes(' '));
-console.log(n.includes('Sm'));
-console.log(`${firstName} `.repeat(5));
+ages6 = years.map((el, index) => `Age element ${index + 1}: ${2018 - el}.`);
+console.log(ages6);
+
+ages6 = years.map((el, index) => {
+    const now = new Date().getFullYear();
+    const age = now - el;
+    return `Age element ${index + 1}: ${age}.`
+});
