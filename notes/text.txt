@@ -45,3 +45,5 @@ fire the event is the target element.
 Event delegation is when you add a event listener to the parent element and wait to the event bubbling get to the parent.
 
 Temporal dead zone => The variables are actually hoisted but you don't have access before are declare on ES6.
+
+Classes are not hoisted on js you need to declared first then use it and you can only add methods to classes not properties.
