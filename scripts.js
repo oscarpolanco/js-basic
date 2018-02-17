@@ -1,38 +1,63 @@
-// Classes
+// Classes with subclasses
 
 // ES5
-function Person5(name, yearOfbirth, job) {
+var Person5 = function(name, yearOfBirth, job) {
     this.name = name;
-    this.yearOfbirth = yearOfbirth;
+    this.yearOfBirth = yearOfBirth;
     this.job = job;
 }
 
 Person5.prototype.calculateAge = function() {
-    var age = new Date().getFullYear() - this.yearOfbirth;
+    var age = new Date().getFullYear() - this.yearOfBirth;
     console.log(age);
 }
-var john5 = new Person5('John', 1990, 'teacher');
-john5.calculateAge();
+
+var Athlete5 = function(name, yearOfBirth, job, olympicGames, medals) {
+    Person5.call(this, name, yearOfBirth, job);
+    this.olympicGames = olympicGames;
+    this.medals = medals;
+}
+
+
+Athlete5.prototype = Object.create(Person5.prototype);
+
+//Need to be after we connect with the prototype of the super class
+Athlete5.prototype.wonMedal = function() {
+    this.medals++;
+    console.log(this.medals);
+}
+
+var johnAthlete5 = new Athlete5('John', 1990, 'swimmer', 3, 10);
+johnAthlete5.calculateAge();
+johnAthlete5.wonMedal();
 
 // ES6
 class Person6 {
-    constructor (name, yearOfbirth, job) {
+    constructor(name, yearOfBirth, job) {
         this.name = name;
-        this.yearOfbirth = yearOfbirth;
-        this.job = job;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job
     }
 
     calculateAge() {
-        var age = new Date().getFullYear() - this.yearOfbirth;
+        var age = new Date().getFullYear() - this.yearOfBirth;
         console.log(age);
-    }
-
-    // Only can be use by the class not by the intances
-    static greeting() {
-        console.log('Hey there!');
     }
 }
 
-var john6 = new Person6('John', 1990, 'teacher');
-john6.calculateAge();
-Person6.greeting();
+class Athlete6 extends Person6 {
+    constructor(name, yearOfBirth, job, olympicGames, medals) {
+        super(name, yearOfBirth, job);
+        this.olympicGames = olympicGames;
+        this.medals = medals;
+    }
+
+    wonMedal() {
+        this.medals++;
+        console.log(this.medals);
+    }
+}
+
+const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10);
+johnAthlete6.wonMedal();
+johnAthlete6.calculateAge();
