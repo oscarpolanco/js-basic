@@ -1,0 +1,49 @@
+Dynamic Typing => You don't need to specify the data type of a variable it already know on the fly
+
+Type coercion => Js automatically convert a data type to another. When you mix variables Js try to figure out which convert
+
+resources => http://codingheroes.io/resources/
+
+Operators precedence table => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+
+Tripe equal doesn't do type coercion; double equal yes.
+
+fucntion expresion return a value and functions statements preform an action
+
+Execution context object
+- variable object
+- scope chain
+- this
+
+Hoisting => on the creation phase of the execution context the function and variables (variables undefined before assing) are
+stored on an object and only work on function declaration
+
+Lexical context => Function that is on another function that get access to the scope of the outer function
+
+Every Js object has a prototype property. The prototype of an object is where we put methods and properties that we want other
+object to inherit.
+
+The constructor's prototype is not the prototype of the constructor itself, it's the prototype of all instances that are created
+through it. When a certain method is called, the search starts in the object itself, and if it cannot be found, the search moves
+on to the object's prototype. This continue until the method is found: prototype chain.
+
+Variables containing primative contains the actual value but variables containing objects contains a reference to that object not
+the actual object.
+
+Js treat the things inside of a parenthesis as an expression instead of a declaration.
+
+Immediatly invoked function expresions just for data privacy and code modularity.
+
+Closures => An inner function has always access to the variables and parameters of its outer function, even after the outer function
+has returned. The scope chain always is intact.
+
+Carrying is a technique to create a function from another function with some pre-set parameters.
+
+Event bubbling means that when a event is trigger on a DOM element the same event is trigger on all parents elements. The event that
+fire the event is the target element.
+
+Event delegation is when you add a event listener to the parent element and wait to the event bubbling get to the parent.
+
+Temporal dead zone => The variables are actually hoisted but you don't have access before are declare on ES6.
+
+Classes are not hoisted on js you need to declared first then use it and you can only add methods to classes not properties.
