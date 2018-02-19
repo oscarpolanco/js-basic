@@ -29,110 +29,91 @@ class Elements {
 }
 
 class Park extends Elements {
-    constructor(name, buildYear, trees, area) {
+    constructor(name, buildYear, area, trees) {
         super(name, buildYear);
         this.trees = trees;
         this.area = area;
-        this.destiny = this.trees / this.area;
         this.age = this.calculateAge(this.buildYear);
     }
 
     calculateAge(year) {
         return new Date().getFullYear() - year;
     }
+
+    treeDestiny() {
+        const destiny = this.trees / this.area;
+        console.log(`${this.name} has a tree destiny of ${destiny} trees per square km.`);
+    }
 }
 
 class Street extends Elements {
-    constructor(name, buildYear, length) {
+    constructor(name, buildYear, length, size = 3) {
         super(name, buildYear);
         this.length = length;
-        this.classification = this.getClassification();
+        this.size = size;
     }
 
-    getClassification() {
-        switch (true) {
-            case this.length <= 1:
-                return 'tiny';
-                break;
-            case this.length <= 2:
-                return 'small';
-                break;
-            case this.length <= 3:
-                return 'big';
-                break;
-            case this.length > 3:
-                return 'huge';
-                break;
-            default:
-                return 'normal';
-        }
+    classificationStreet() {
+        const classification = new Map();
+        classification.set(1, 'tiny');
+        classification.set(2, 'small');
+        classification.set(3, 'normal');
+        classification.set(4, 'big');
+        classification.set(5, 'huge');
+        console.log(`${this.name}, build in ${this.buildYear}, is a ${classification.get(this.size)}`);
     }
 }
 
-function calculateAverage(property, items) {
-    let sum = 0;
-    for (let current of items) {
-        sum += current[property];
-    }
-    return sum / items.length;
-};
+const parks = [
+    new Park('Green Park', 1987, 0.2, 215),
+    new Park('National Park', 1894, 2.9, 3541),
+    new Park('Oak Park', 1953, 0.4, 949)
+];
 
-function mostTrees(items) {
-    let name;
-    for (let current of items) {
-        if(current.trees > 1000) {
-            name = current.name;
-        }
-    }
-    return name;
-};
+const streets = [
+    new Street('Ocean Avenue', 1999, 1.1, 4),
+    new Street('Evergreen Street', 2008, 2.7, 2),
+    new Street('4th Street', 2015, 0.8),
+    new Street('Sunset Boulevard', 1982, 2.5, 5)
+];
 
-function calculatelength(streets) {
-    var sum = 0;
-    for (let current of streets) {
-        sum += current.length;
-    }
-    return sum;
-};
+function calc(arr) {
 
-function logParkReport (elements) {
-    const parks = elements.get('parks');
+    const sum = arr.reduce((prev, curr, index) => prev + curr, 0);
+
+    return [sum, sum / arr.length];
+
+}
+
+function reportParks(parks) {
+
     console.log('----PARKS REPORT----');
-    console.log(`Our ${parks.length} have an average of ${elements.get('Average park')}`);
-    for (let current of parks) {
-        console.log(`${current.name} has a tree destiny of ${current.destiny} trees per square km`);
-    }
-    console.log(`${elements.get('Most trees')} has more than 1000 trees.`);
+
+    // destiny
+    parks.forEach(el => el.treeDestiny());
+
+    // average age
+    const ages = parks.map(el => new Date().getFullYear() - el.buildYear);
+    const [totalAge, avAge] = calc(ages);
+    console.log(`Our ${parks.length} parks have an average of ${avAge} years.`);
+
+    // which park have more than 1000 trees
+    const i = parks.map(el => el.trees).findIndex(el => el >= 1000);
+    console.log(`${parks[i].name} has more than 1000 trees.`);
+
 };
 
-function logStreetsReport(elements) {
-    const streets = elements.get('streets');
+function reportStreets(streets) {
+
     console.log('----STREETS REPORT----');
-    console.log(`Our ${streets.length} have a total length of ${elements.get('Total length')} km, with an average of ${elements.get('Average street')} km.`);
-    for (let current of streets) {
-        console.log(`${current.name}, build in ${current.buildYear}, is a ${current.classification} street.`);
-    }
+
+    // Total average length of town's STREETS
+    const [totalLenght, avLenght] = calc(streets.map(el =>  el.length));
+    console.log(`Our ${streets.length} have a total length of ${totalLenght} km, with an average of ${avLenght} km.`);
+
+    // Classify sizes
+    streets.forEach(el => el.classificationStreet());
 };
 
-const parks = [];
-parks[0] = new Park('Green Park', 1960, 1000, 5000);
-parks[1] = new Park('National Park', 1980, 1500, 5000);
-parks[2] = new Park('Oak Park', 1990, 900, 5000);
-
-const streets = [];
-streets[0] = new Street('Ocean Avenue', 1999, 7.1);
-streets[1] = new Street('Evergreen Street', 2008, 7.1);
-streets[2] = new Street('4th Street', 2015, 7.1);
-streets[3] = new Street('Sunset Boulevard', 1982, 7.1);
-
-const elements = new Map([
-    ['parks', parks],
-    ['streets', streets],
-    ['Average park', calculateAverage('age', parks)],
-    ['Most trees', mostTrees(parks)],
-    ['Average street', calculateAverage('length', streets)],
-    ['Total length', calculatelength(streets)]
-]);
-
-logParkReport(elements);
-logStreetsReport(elements);
+reportParks(parks);
+reportStreets(streets);
