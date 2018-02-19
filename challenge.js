@@ -1,82 +1,138 @@
 /*
-1. Build a function constructor called question to describe a question, A question include:
-a) question itself
-b) the awnsers from which the player can choose the correct one (choose an adequate data structure
-here, array, object, etc.)
-c) correct answer (I would use a number for this)
+Suppose that you're working in a small town administration, and you're in charge
+of two town elements:
+1. Parks
+2. Streets
 
-2. Create a couple of questuions using the constructor
+It's a very small town, so right now there are only 3 parks and 4 streets. All
+parks and streets have a name and a build year.
 
-3. Store them all inside an array
+At an end-of-year meeting; your boss wants a final report with the following:
+1. Tree destiny of each park in the town (formula: number of trees/parks area)
+2. Average age of each town's park(formula: sum all ages/number of park)
+3. The name of the park that has more than 1000 trees
+4. Total and average length of town's Streets
+5. Size classification of all streets: tiny/small/normal/big/huge. If the size
+is unknown, the default is normal
 
-4. Select one random question and log it on the console, together with the possible awnser (each
-questuion should have a number) (Hint: write a method for the Question object for this task).
+all the report data should be printed to the console.
 
-5. Use the `prompt` function to ask the user for the correct awnser. The user should input the
-number of the correct awnser such as you displayed it on Task 4.
-
-6. Check if the awnser is correct and print to the console whether the awnser is correct or not
-(Hint: write another method for this).
-
-7. Suppose this code would be a plugin for other programmers to use their code. So make sure that
-all your code is private and doesn't interfere with the other programmers code (Hint: we learned
-a special technique to do exactly that).
-
-8. After you display the result, display the next random question, so that the gane never ends(Hint:
-write a function for this and call it right after displaying the result)
-
-9. Be careful: after Task 8, the game literally never ends. So include a quit option to quick the game
-if the user write 'exit' instead of the answer. In this case, DON't call the function from task 8.
-
-10. Track the user's score to make the game more fun! So each time an answer is correct, add 1 point to
-the score (Hint: I'm going to use the power of closueres for thism but you don't have to, just do this
-with the tools you feel more comfortable at this point).
-
-11. Display the score in the console. Use yet another method for this.
+HINT: Use some of the ES6 features: classes, subclasses, template string, defaut
+parameters, maps, arrow functions, destructuring, etc.
 */
 
-
-(function() {
-    var Question = function(question, options, awnser) {
-        this.question = question;
-        this.options = options;
-        this.anwser = awnser;
-    };
-
-    Question.prototype.logQuestion = function() {
-        console.log(this.question);
-        for (var i = 0; i < this.options.length; i++) {
-            console.log((i + 1) + '. ' + this.options[i]);
-        }
-    };
-
-    Question.prototype.isCorrect = function(playerChoise) {
-        if(parseInt(playerChoise) === this.anwser) {
-            console.log('You are correct!!!!');
-            score++;
-            console.log('Your score is: ' + score);
-            console.log('------------------------');
-        } else {
-            console.log('Is not the correct awnser :(');
-            console.log('Your score is: ' + score);
-            console.log('------------------------');
-        }
-    };
-
-    var questions = [];
-    var score = 0;
-    questions[0] = new Question('Name of the example guy?', ['Max', 'John'], 2);
-    questions[1] = new Question('Where does he work?', ['Teacher', 'developer'], 1);
-    questions[2] = new Question('Can you tell who is the other example name?', ['Paco', 'Jane'], 2);
-
-    while (true) {
-        var index = Math.floor(Math.random() * questions.length);
-        questions[index].logQuestion();
-
-        var playerChoise = prompt('Enter your answer:');
-        if (playerChoise === 'exit') {
-            break;
-        }
-        questions[index].isCorrect(playerChoise);
+class Elements {
+    constructor(name, buildYear) {
+        this.name = name;
+        this.buildYear = buildYear;
     }
-})();
+}
+
+class Park extends Elements {
+    constructor(name, buildYear, trees, area) {
+        super(name, buildYear);
+        this.trees = trees;
+        this.area = area;
+        this.destiny = this.trees / this.area;
+        this.age = this.calculateAge(this.buildYear);
+    }
+
+    calculateAge(year) {
+        return new Date().getFullYear() - year;
+    }
+}
+
+class Street extends Elements {
+    constructor(name, buildYear, length) {
+        super(name, buildYear);
+        this.length = length;
+        this.classification = this.getClassification();
+    }
+
+    getClassification() {
+        switch (true) {
+            case this.length <= 1:
+                return 'tiny';
+                break;
+            case this.length <= 2:
+                return 'small';
+                break;
+            case this.length <= 3:
+                return 'big';
+                break;
+            case this.length > 3:
+                return 'huge';
+                break;
+            default:
+                return 'normal';
+        }
+    }
+}
+
+function calculateAverage(property, items) {
+    let sum = 0;
+    for (let current of items) {
+        sum += current[property];
+    }
+    return sum / items.length;
+};
+
+function mostTrees(items) {
+    let name;
+    for (let current of items) {
+        if(current.trees > 1000) {
+            name = current.name;
+        }
+    }
+    return name;
+};
+
+function calculatelength(streets) {
+    var sum = 0;
+    for (let current of streets) {
+        sum += current.length;
+    }
+    return sum;
+};
+
+function logParkReport (elements) {
+    const parks = elements.get('parks');
+    console.log('----PARKS REPORT----');
+    console.log(`Our ${parks.length} have an average of ${elements.get('Average park')}`);
+    for (let current of parks) {
+        console.log(`${current.name} has a tree destiny of ${current.destiny} trees per square km`);
+    }
+    console.log(`${elements.get('Most trees')} has more than 1000 trees.`);
+};
+
+function logStreetsReport(elements) {
+    const streets = elements.get('streets');
+    console.log('----STREETS REPORT----');
+    console.log(`Our ${streets.length} have a total length of ${elements.get('Total length')} km, with an average of ${elements.get('Average street')} km.`);
+    for (let current of streets) {
+        console.log(`${current.name}, build in ${current.buildYear}, is a ${current.classification} street.`);
+    }
+};
+
+const parks = [];
+parks[0] = new Park('Green Park', 1960, 1000, 5000);
+parks[1] = new Park('National Park', 1980, 1500, 5000);
+parks[2] = new Park('Oak Park', 1990, 900, 5000);
+
+const streets = [];
+streets[0] = new Street('Ocean Avenue', 1999, 7.1);
+streets[1] = new Street('Evergreen Street', 2008, 7.1);
+streets[2] = new Street('4th Street', 2015, 7.1);
+streets[3] = new Street('Sunset Boulevard', 1982, 7.1);
+
+const elements = new Map([
+    ['parks', parks],
+    ['streets', streets],
+    ['Average park', calculateAverage('age', parks)],
+    ['Most trees', mostTrees(parks)],
+    ['Average street', calculateAverage('length', streets)],
+    ['Total length', calculatelength(streets)]
+]);
+
+logParkReport(elements);
+logStreetsReport(elements);
