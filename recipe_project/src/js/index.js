@@ -71,6 +71,11 @@ const controlRecipe = async () => {
     recipeView.clearRecipe();
     renderLoader(elements.recipe);
 
+    // Hihglight selected search item
+    if (state.search) {
+      searchView.hihglightSelected(id);
+    }
+
     // Create new recipe object
     state.recipe = new Recipe(id);
 
