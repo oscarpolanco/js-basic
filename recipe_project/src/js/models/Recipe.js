@@ -98,6 +98,5 @@ export default class Recipe {
     });
 
     this.servings = newServings;
-    console.log(this.servings);
   }
 }
